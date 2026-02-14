@@ -1,0 +1,181 @@
+/* Glassmorphism Utilities */
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 24px;
+    padding: 2rem;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.welcome-card,
+.payment-card {
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.welcome-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+/* Layout Specifics */
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    height: 100%;
+}
+
+.voice-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.mic-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: transform 0.2s;
+}
+
+.mic-container:active {
+    transform: scale(0.95);
+}
+
+.mic-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    position: relative;
+}
+
+.mic-icon-large {
+    width: 48px;
+    height: 48px;
+    color: var(--text-color);
+}
+
+.suggestions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.suggestion-chip {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.suggestion-chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Cart Specifics */
+.cart-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-items-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    animation: slideIn 0.3s ease-out;
+}
+
+.cart-item-info strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.cart-item-info span {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.cart-item-price {
+    font-weight: 600;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Order AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/glass.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/upsell.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Background Elements -->
+        <div class="gradient-bg"></div>
+        <div class="glass-overlay"></div>
+
+        <!-- Greeting Overlay -->
+        <div id="greeting-overlay" class="overlay active">
+            <div class="glass-card welcome-card">
+                <i data-lucide="mic" class="welcome-icon"></i>
+                <h1>Welcome to VoiceEats</h1>
+                <p>Order your meal just by speaking.</p>
+                <button id="start-btn" class="primary-btn">Start Ordering</button>
+            </div>
+        </div>
+
+        <!-- Main Interface -->
+        <main id="main-interface" class="hidden">
+            <header>
+                <div class="logo">VoiceEats</div>
+                <div class="live-indicator hidden" id="listening-indicator">
+                    <div class="pulsing-dot"></div> Listening...
+                </div>
+            </header>
+
+            <div class="content-grid">
+                <!-- Center Stage: Voice Interaction -->
+                <section class="voice-stage">
+                    <div class="mic-container" id="mic-trigger">
+                        <div class="mic-circle">
+                            <i data-lucide="mic" class="mic-icon-large"></i>
+                        </div>
+                        <div class="mic-rings"></div>
+                    </div>
+
+                    <div class="transcript-box">
+                        <p id="live-transcript" class="placeholder">Tap the mic and say "I want a spicy burger"...</p>
+                    </div>
+
+                    <div class="suggestions" id="suggestions-container">
+                        <!-- Dynamic suggestions will appear here -->
+                    </div>
+
+                    <div id="upsell-container" class="upsell-container hidden">
+                        <!-- Upsell will be injected here -->
+                    </div>
+                </section>
+
+                <!-- Right Panel: Live Cart -->
+                <aside class="cart-panel glass-card">
+                    <h2>Your Order</h2>
+                    <div id="cart-items" class="cart-items-list">
+                        <!-- Cart items go here -->
+                        <div class="empty-cart-msg">Cart is empty</div>
+                    </div>
+
+                    <div class="cart-footer">
+                        <div class="total-row">
+                            <span>Total</span>
+                            <span id="cart-total">$0.00</span>
+                        </div>
+                        <button id="checkout-btn" class="checkout-btn" disabled>
+                            Checkout <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                </aside>
+            </div>
+        </main>
+
+        <!-- Payment Overlay -->
+        <div id="payment-overlay" class="overlay hidden">
+            <div class="glass-card payment-card">
+                <h2>Scan to Pay</h2>
+                <div class="qr-placeholder">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=VoiceEatsPayment"
+                        alt="Payment QR Code">
+                </div>
+                <p>Total: <span id="payment-total">$0.00</span></p>
+                <button id="cancel-payment-btn" class="secondary-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts (Loaded in dependency order for file:// compatibility) -->
+    <script src="js/data/menu.js"></script>
+    <script src="js/speech.js"></script>
+    <script src="js/upsell.js"></script>
+    <script src="js/nlp.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
