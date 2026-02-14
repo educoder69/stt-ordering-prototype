@@ -11,8 +11,8 @@ class Cart {
         // We will rely on unique IDs or timestamps if needed, but for now simple push.
 
         // Check if we just added this item (debounce)
-        if (lastItem && lastItem.id === item.id && (now - lastItem.timestamp < 5000)) {
-            // Skip if added same item less than 5 seconds ago (prevents echo/buffer duplicates)
+        if (lastItem && lastItem.id === item.id && (now - lastItem.timestamp < 2000)) {
+            // Skip if added same item less than 2 seconds ago (simple debounce)
             return;
         }
 

@@ -21,7 +21,6 @@ lucide.createIcons();
 
 // State
 let isListening = false;
-let lastProcessedLength = 0; // To avoid reprocessing the same text part
 // Payment Timer
 let paymentTimer = null;
 
@@ -50,10 +49,7 @@ const speech = new SpeechHandler(
     },
     () => {
         // On End
-        if (isListening) {
-            lastProcessedLength = 0; // Reset for the next session
-            speech.start();
-        }
+        if (isListening) speech.start(); // Restart if supposed to be listening
     },
     (err) => {
         console.error("Speech Error:", err);
@@ -161,7 +157,6 @@ function closePaymentOverlay() {
 
 function startListening() {
     isListening = true;
-    lastProcessedLength = 0; // Reset for new session
     micTrigger.classList.add('items-listening');
     listeningIndicator.classList.remove('hidden');
     speech.start();
@@ -222,7 +217,6 @@ function handleSpeechResult(final, interim) {
 
                 // Stop listening briefly to clear buffer/echo
                 speech.stop();
-                lastProcessedLength = 0; // Essential for new session
                 ignoreSpeechUntil = Date.now() + 3000;
 
                 // Clear transcript to indicate new "session"
@@ -240,7 +234,6 @@ function handleSpeechResult(final, interim) {
 
                 // Stop listening briefly to clear buffer/echo/residual "No"
                 speech.stop();
-                lastProcessedLength = 0; // Essential for new session
                 ignoreSpeechUntil = Date.now() + 3000;
 
                 // Clear transcript
@@ -255,14 +248,8 @@ function handleSpeechResult(final, interim) {
         }
 
         // 2. Normal Intent Matching
-        // Only process the part of the transcript we haven't seen before
-        const newText = final.substring(lastProcessedLength) + interim;
-        const matches = matchIntent(newText);
-
+        const matches = matchIntent(fullText);
         if (matches) {
-            // Update lastProcessedLength based on the final part we just handled
-            lastProcessedLength = final.length;
-
             matches.forEach(item => {
                 // Apply debounce check to ALL items
                 if (isRecentlyAdded(item.id)) return;
@@ -412,7 +399,6 @@ function speak(text) {
 function resetApp() {
     // 1. Reset State
     isListening = false;
-    lastProcessedLength = 0;
     pendingUpsell = false;
     upsellSuppressed = false;
     lastUpsellTime = 0;
