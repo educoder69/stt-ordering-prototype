@@ -206,6 +206,7 @@ function handleSpeechResult(final, interim) {
                 hideUpsell();
 
                 pendingUpsell = false;
+                upsellSuppressed = true;
 
                 // Stop listening briefly to clear buffer/echo
                 speech.stop();
@@ -222,6 +223,7 @@ function handleSpeechResult(final, interim) {
                 hideUpsell();
 
                 pendingUpsell = false;
+                upsellSuppressed = true;
 
                 // Stop listening briefly to clear buffer/echo/residual "No"
                 speech.stop();
@@ -263,6 +265,7 @@ function handleSpeechResult(final, interim) {
 }
 
 let pendingUpsell = false;
+let upsellSuppressed = false;
 let lastUpsellTime = 0;
 let lastUpsellAnswerTime = 0;
 let ignoreSpeechUntil = 0;
@@ -336,6 +339,10 @@ function renderCart(items) {
 }
 
 function checkUpsell(items) {
+    if (upsellSuppressed) {
+        hideUpsell();
+        return;
+    }
     const suggestion = upsellEngine.getSuggestion(items);
     if (suggestion) {
         showUpsell(suggestion);
@@ -392,6 +399,7 @@ function resetApp() {
     // 1. Reset State
     isListening = false;
     pendingUpsell = false;
+    upsellSuppressed = false;
     lastUpsellTime = 0;
     lastUpsellAnswerTime = 0;
     ignoreSpeechUntil = 0;
