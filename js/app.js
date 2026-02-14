@@ -32,16 +32,16 @@ let lastUpsellTime = 0;
 let lastUpsellAnswerTime = 0;
 let ignoreSpeechUntil = 0;
 
+// Initialize Upsell Engine
+const upsellEngine = new UpsellEngine(menu);
+const upsellContainer = document.getElementById('upsell-container');
+
 // Initialize Cart
 const cart = new Cart((items) => {
     renderCart(items);
     checkUpsell(items);
 });
 cart.clear(); // Ensure UI is updated and cart is empty on load
-
-// Initialize Upsell Engine
-const upsellEngine = new UpsellEngine(menu);
-const upsellContainer = document.getElementById('upsell-container');
 
 // Speech Handler
 const speech = new SpeechHandler(
