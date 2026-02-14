@@ -25,6 +25,13 @@ let lastProcessedLength = 0; // To avoid reprocessing the same text part
 // Payment Timer
 let paymentTimer = null;
 
+// Upsell & Interaction State
+let pendingUpsell = false;
+let upsellSuppressed = false;
+let lastUpsellTime = 0;
+let lastUpsellAnswerTime = 0;
+let ignoreSpeechUntil = 0;
+
 // Initialize Cart
 const cart = new Cart((items) => {
     renderCart(items);
@@ -276,11 +283,6 @@ function handleSpeechResult(final, interim) {
     }
 }
 
-let pendingUpsell = false;
-let upsellSuppressed = false;
-let lastUpsellTime = 0;
-let lastUpsellAnswerTime = 0;
-let ignoreSpeechUntil = 0;
 
 function startInteractiveUpsell() {
     // Debounce the prompt itself
