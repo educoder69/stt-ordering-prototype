@@ -211,7 +211,7 @@ function handleSpeechResult(final, interim) {
 
                 // Stop listening briefly to clear buffer/echo
                 speech.stop();
-                ignoreSpeechUntil = Date.now() + 2000;
+                ignoreSpeechUntil = Date.now() + 3000;
 
                 // Clear transcript to indicate new "session"
                 liveTranscript.textContent = "";
@@ -228,7 +228,7 @@ function handleSpeechResult(final, interim) {
 
                 // Stop listening briefly to clear buffer/echo/residual "No"
                 speech.stop();
-                ignoreSpeechUntil = Date.now() + 2000;
+                ignoreSpeechUntil = Date.now() + 3000;
 
                 // Clear transcript
                 liveTranscript.textContent = "";
@@ -310,7 +310,7 @@ function isRecentlyAdded(id) {
     const recentItems = cart.items.slice(-5);
 
     return recentItems.some(item => {
-        return item.id === id && (now - item.timestamp < 3000);
+        return item.id === id && (now - item.timestamp < 10000);
     });
 }
 
