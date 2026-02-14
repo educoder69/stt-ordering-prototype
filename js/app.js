@@ -30,6 +30,7 @@ const cart = new Cart((items) => {
     renderCart(items);
     checkUpsell(items);
 });
+cart.clear(); // Ensure UI is updated and cart is empty on load
 
 // Initialize Upsell Engine
 const upsellEngine = new UpsellEngine(menu);
